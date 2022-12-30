@@ -25,6 +25,7 @@
 #include "SharedExportQml.h"
 
 #include <VLCQtCore/TrackModel.h>
+#include<qtimer.h>
 
 class VlcAudio;
 class VlcInstance;
@@ -221,12 +222,18 @@ public:
 	Q_INVOKABLE void play();
 
     /*!
+        \brief Play current playback after lazyTime ms
+
+        Invokable from QML.
+     */
+        Q_INVOKABLE void lazyPlay(int lazyTime=1000);
+
+    /*!
         \brief Stop current playback
 
         Invokable from QML.
      */
 	Q_INVOKABLE void stop();
-
 
     /*!
         \brief Get current volume
@@ -611,6 +618,8 @@ private slots:
     void seekableChangedPrivate(bool);
     void mediaParsed(bool);
     void mediaPlayerVout(int);
+    void onStarted();
+
 private:
     void openInternal();
     int preferredAudioTrackId();
@@ -634,6 +643,8 @@ private:
 
     QStringList _audioPreferredLanguages;
     QStringList _subtitlePreferredLanguages;
+
+    int _lazyLoaded;
 };
 
 #endif // VLCQT_QMLVIDEOPLAYER_H_

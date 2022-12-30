@@ -57,11 +57,13 @@ VlcQmlVideoPlayer::VlcQmlVideoPlayer(QQuickItem *parent)
     connect(_player, SIGNAL(vout(int)), this, SLOT(mediaPlayerVout(int)));
     connect(_player, SIGNAL(error()), this, SIGNAL(error()));
     connect(_player, SIGNAL(stopped()), this, SIGNAL(stopped()));
-    connect(_player, SIGNAL(started()), this, SIGNAL(started()));
+    connect(_player, SIGNAL(playing()), this, SLOT(onStarted()));
     
     _audioTrackModel = new VlcTrackModel(this);
     _subtitleTrackModel = new VlcTrackModel(this);
     _videoTrackModel = new VlcTrackModel(this);
+
+    _lazyLoaded = 0;
 }
 
 VlcQmlVideoPlayer::~VlcQmlVideoPlayer()
@@ -277,6 +279,13 @@ void VlcQmlVideoPlayer::mediaPlayerVout(int)
     setVideoTrack(_videoManager->track());
 }
 
+void VlcQmlVideoPlayer::onStarted()
+{
+    _lazyLoaded = 0;
+    qDebug() << "[onStarted] reset lazyLoad ---> " << _lazyLoaded;
+    emit started();
+}
+
 bool VlcQmlVideoPlayer::autoplay() const
 {
     return _autoplay;
@@ -321,6 +330,19 @@ void VlcQmlVideoPlayer::pause()
 void VlcQmlVideoPlayer::play()
 {
     _player->play();
+}
+
+void VlcQmlVideoPlayer::lazyPlay(int lazyTime)
+{
+    if (url().isEmpty() || _lazyLoaded > 0) {
+        qDebug() << "[lazyPlay] Url is empty or lazyLoad is called before: ---> " << _lazyLoaded;
+        return;
+    }
+    _player->stop();
+    _lazyLoaded++;
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &VlcQmlVideoPlayer::play);
+    timer->start(1000);
 }
 
 void VlcQmlVideoPlayer::stop()
