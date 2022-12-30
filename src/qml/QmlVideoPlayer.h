@@ -204,7 +204,7 @@ public:
 
         Object name: VlcVideoPlayer
      */
-    static void registerPlugin();
+    //static void registerPlugin();
 
     /*!
         \brief Pause current playback

@@ -75,10 +75,10 @@ VlcQmlVideoPlayer::~VlcQmlVideoPlayer()
     delete _instance;
 }
 
-void VlcQmlVideoPlayer::registerPlugin()
-{
-    qmlRegisterType<VlcQmlVideoPlayer>("VLCQt", 1, 0, "VlcVideoPlayer");
-}
+//void VlcQmlVideoPlayer::registerPlugin()
+//{
+//    qmlRegisterType<VlcQmlVideoPlayer>("VLCQt", 1, 0, "VlcVideoPlayer");
+//}
 
 void VlcQmlVideoPlayer::openInternal()
 {
