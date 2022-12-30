@@ -55,7 +55,10 @@ VlcQmlVideoPlayer::VlcQmlVideoPlayer(QQuickItem *parent)
     connect(_player, SIGNAL(timeChanged(int)), this, SIGNAL(timeChanged()));
     connect(_player, SIGNAL(positionChanged(float)), this, SIGNAL(positionChanged()));
     connect(_player, SIGNAL(vout(int)), this, SLOT(mediaPlayerVout(int)));
-
+    connect(_player, SIGNAL(error()), this, SIGNAL(error()));
+    connect(_player, SIGNAL(stopped()), this, SIGNAL(stopped()));
+    connect(_player, SIGNAL(started()), this, SIGNAL(started()));
+    
     _audioTrackModel = new VlcTrackModel(this);
     _subtitleTrackModel = new VlcTrackModel(this);
     _videoTrackModel = new VlcTrackModel(this);
