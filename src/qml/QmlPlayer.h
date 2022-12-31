@@ -525,6 +525,23 @@ signals:
     */
     void videoTrackChanged();
 
+    /*!
+        \brief Signal sent on error
+    */
+    void error();
+
+    /*!
+        \brief Playing video started signal
+        \since VLC-Qt 1.1
+    */
+    void playing();
+
+    /*!
+        \brief Playing video stopped signal
+        \since VLC-Qt 1.1
+    */
+    void stopped();
+
 private slots:
     void mediaParsed(bool parsed);
     void mediaPlayerVout(int count);
