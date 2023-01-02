@@ -528,23 +528,19 @@ signals:
     /*!
         \brief Signal sent on error
     */
-    void error();
+    void error(void *param);
 
     /*!
         \brief Playing video started signal
         \since VLC-Qt 1.1
     */
-    void playing();
-
-    /*!
-        \brief Playing video stopped signal
-        \since VLC-Qt 1.1
-    */
-    void stopped();
+    void playing(void *param);
 
 private slots:
     void mediaParsed(bool parsed);
     void mediaPlayerVout(int count);
+    void onError();
+    void onPlaying();
 
 private:
     void openInternal();
