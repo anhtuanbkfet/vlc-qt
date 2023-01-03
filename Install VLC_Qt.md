@@ -26,6 +26,13 @@ LIBVL_INCLUDE_DIR
 
 ### 7. Gen project and build.
 Mowe solution với VS2019, buid project ALL_BUILD, sau đó build project INSTALL
-Nếu ở bước 4, CMAKE_INSTALL_PREFIX không được set thành C:\Qt\5.15.2\msvc2019_64:
+- Nếu gặp lỗi MSB3073 (The command "setlocal ...):
+- Vào thư mục build, file cmake_install.cmake sửa đường dẫn ở line 45,46 thành
+```
+"C:/Qt/5.15.2/msvc2019_64/bin/libvlc.dll"
+"C:/Qt/5.15.2/msvc2019_64/bin/libvlccore.dll"
+```
+
+- Nếu ở bước 4, CMAKE_INSTALL_PREFIX không được set thành C:\Qt\5.15.2\msvc2019_64:
 ---> Copy toàn bộ folder INSTALL vào C:\Qt\5.15.2\msvc2019_64
  
